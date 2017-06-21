@@ -1,0 +1,8 @@
+{
+  "name": "PostCssAndCssFuture",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:fatefan/PostCssAndCssFuture.git",
+  "author": "fynn <iamfatefan000@gmail.com>",
+  "license": "MIT"
+}
