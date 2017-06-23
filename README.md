@@ -61,3 +61,4 @@ PostCSS上面各种强大的插件，使得它无所不能。它可以支持你�
 	.module {
 		@apply --vertical-middle;
 	}
+在__:root__选择器内定义一段css代码，然后在其他选择器中使用这段代码。
