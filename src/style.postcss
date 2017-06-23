@@ -2,9 +2,29 @@ div {
     display: flex;
 }
 :root {
-  --mainColor: red;
+  --mainColor: red; 
+  --vertical-middle: {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		};
+    --fontSize: 2rem;
 }
-
+body {
+  font-size: 12px;
+}
 a {
   color: var(--mainColor);
+}
+div > a {
+  color: var(--mainColor);  
+}
+
+div {
+  @apply --vertical-middle;
+}
+
+h1 {
+  font-size: calc(var(--fontSize) * 2);
 }
