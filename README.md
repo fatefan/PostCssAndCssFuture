@@ -34,4 +34,30 @@ postcss.config.js -- postcss配置文件。
 
 ## 插件
 PostCSS上面各种强大的插件，使得它无所不能。它可以支持你在代码中使用未来CSS语法，就像Babel支持你写未来JS一样。你还可以用它来压缩，debug代码。
-###
+###postcss-cssnext
+> Discover the future of CSS
+
+加载postcss-cssnext插件，你就可以使用CSS4语法了。  
+#### custom properties & var()
+在__:root__选择器内定义变量，在其它选择器中该变量使用。  
+
+	：root {
+		--defaultSize: 14px;
+	}
+	div {
+		font-size: var(--defaultSize); // 将要使用的变量放入 var()中。
+	}
+#### custom properties set & apply
+在__:root__选择器内定义一段css代码，然后在其他选择器中使用这段代码。
+
+	：root {
+		--vertical-middle: {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+	.module {
+		@apply --vertical-middle;
+	}
