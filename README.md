@@ -61,4 +61,50 @@ PostCSS上面各种强大的插件，使得它无所不能。它可以支持你�
 	.module {
 		@apply --vertical-middle;
 	}
-在__:root__选择器内定义一段css代码，然后在其他选择器中使用这段代码。
+#### custom selectors （@custom-selector）
+你可以创建自己的选择器
+
+	
+	@custom-selector :--button button, .btn;
+	@custom-selector :--enter :hover, :focus;
+	:--button {
+  		padding: 10px;
+  		background-color: red;
+	}
+	:--button:--enter {
+  		background-color: pink;
+	}
+#### nesting
+嵌套选择器
+
+	a {
+		font-size: var(--fontSize);
+		/* 直接嵌套 ‘&’ 嵌套选择符 它代表父级规则*/
+		& span {
+			color: white;
+		}
+
+		/* @nest 嵌套选择符声明 使用了@nest符号的选择器声明中必须包含嵌套选择器 */
+		@nest span & {
+			color: blue;
+		}
+
+		/* media query automatic nesting */
+		@media (min-width: 30em) {
+			color: yellow;
+		}
+	}
+	.foo {
+		color: red;
+		@nest .bar {
+			color: blue;
+		}
+	}
+	/* Invalid because there’s no nesting selector */
+
+	.foo {
+		color: red;
+		@nest & .bar, .baz {
+			color: blue;
+		}
+	}

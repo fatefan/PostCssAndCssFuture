@@ -11,6 +11,8 @@ div {
 		};
     --fontSize: 2rem;
 }
+@custom-selector :--button button, .btn;
+@custom-selector :--enter :hover, :focus;
 body {
   font-size: 12px;
 }
@@ -27,4 +29,36 @@ div {
 
 h1 {
   font-size: calc(var(--fontSize) * 2);
+}
+
+:--button {
+  background-color: red;
+  &:--enter {
+    background-color: pink;
+  }
+}
+
+a {
+  font-size: var(--fontSize);
+  /* direct nesting (& MUST be the first part of selector)*/
+  & span {
+    color: white;
+  }
+
+  /* @nest rule (for complex nesting) */
+  @nest span & {
+    color: blue;
+  }
+
+  /* media query automatic nesting */
+  @media (min-width: 30em) {
+    color: yellow;
+  }
+}
+
+.foo {
+  color: red;
+  @nest & > .bar {
+    color: blue;
+  }
 }
