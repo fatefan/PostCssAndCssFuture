@@ -1,6 +1,7 @@
 # 介绍 PostCSS
 > PostCSS is a tool for transforming CSS with JS plugins. These plugins can support variables and mixins, transpile future CSS syntax, inline images, and more
 
+![](https://www.smashingmagazine.com/wp-content/uploads/2015/12/post-css-opt.png)  
 [PostCSS](http://postcss.org/)是个平台，在这个平台上你可以找到各种对CSS进行编译转换的插件。通过使用插件你可以达到CSS预编译器的效果。但PostCSS的用途不是只是一个CSS预处理器，它是个CSS生态系统。
 
 ## 使用
@@ -106,5 +107,88 @@ PostCSS上面各种强大的插件，使得它无所不能。它可以支持你�
 		color: red;
 		@nest & .bar, .baz {
 			color: blue;
+		}
+	}
+### CSS Module
+CSS Module使我们不用担心样式的Class名会冲突。在组件话开发中，我们不同组件之间有名字一样的Class，这样可能会造成样式错乱。CSS Module可以解决这个问题。
+#### webpack
+css-loader 自带 CSS Module功能配置方式如下：
+
+	rules: [
+		{
+			test:/\.postcss$/,
+			use:ExtractTextPlugin.extract({
+				fallback:'style-loader',
+				use:[
+					{
+						loader:'css-loader',
+						options:{
+							modules: true
+						}
+					},
+					'postcss-loader'
+				]
+			}),
+			exclude: /node_modules/
+		}
+	]
+以React为例:
+
+	import React, {Component} from 'react';
+	import {render} from 'react-dom';
+	import style from './style.postcss'
+	class HelloWorld extends Component {
+		render () {
+			return (<h1 className={style.hw}>Hello World!</h1>)
+		}
+	}
+	render(<Hw/>,document.getElementById('app'));
+结果：
+!['DOM 结果'](http://imglf0.nosdn.127.net/img/Lzg4b1BvbmpvR2h6NC92VlJTU1psMlpZcTUxQ0t3ZkpLVnU2QlFtVWU0S3MwRUcwNVI0MXFBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg)
+
+### cssnano
+css代码压缩插件。
+	
+	yarn add postcss-cli cssnano
+postcss.config.js:
+
+	module.exports = {
+		plugins: [
+			require('cssnano')({
+				preset: 'default',
+			}),
+		],
+	};
+webpack加载器css-loader集成了cssnano，只需把配置项 options.minimize 变为true。
+### postcss-pxtorem
+将‘px’转换为 ‘rem’;
+
+	yarn add postcss-pxtorem
+postcss.config.js
+
+	module.exports = {
+		plugins:{
+			'postcss-pxtorem':{
+				rootValue: 16,  //根元素的font-size大小。
+				unitPrecision ： 6，//rem小数点最长位数。
+				propList： ['font-size','line-height'], //需要进行转换的选择器
+				selectorBlackList： [/^html$/,/^body$/],//不进行转换的选择器 
+				replace: true, //是否替换 px字段值，
+				mediaQuery：false， //是否替换 媒体查下的条件
+				minPixelValue： 0 // 转换的最小值
+			}
+		}
+	}
+### postcss-url
+对样式文件的图片进行处理。添加路径,base64,复制。
+
+	yarn add postcss-url
+postcss.config.js
+
+	module.exports = {
+		plugins: {
+			'postcss-url':{
+				url: 'inline', //将图片转换为base64
+			}	
 		}
 	}

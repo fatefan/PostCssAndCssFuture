@@ -1,4 +1,4 @@
-div {
+.flex {
     display: flex;
 }
 :root {
@@ -9,11 +9,11 @@ div {
 			left: 50%;
 			transform: translate(-50%, -50%);
 		};
-    --fontSize: 2rem;
+    --fontSize: 16px;
 }
 @custom-selector :--button button, .btn;
 @custom-selector :--enter :hover, :focus;
-body {
+html {
   font-size: 12px;
 }
 a {
@@ -25,6 +25,7 @@ div > a {
 
 div {
   @apply --vertical-middle;
+  width: 100%;
 }
 
 h1 {
@@ -53,6 +54,7 @@ a {
   /* media query automatic nesting */
   @media (min-width: 30em) {
     color: yellow;
+    font-size: 12px;
   }
 }
 
@@ -61,4 +63,17 @@ a {
   @nest & > .bar {
     color: blue;
   }
+}
+.hw {
+  font-size: 22px;
+  color:var(--mainColor);
+  text-align: center;
+}
+.img {
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  background-size: 100%;
+  background: url('/imgs/post-css-opt.png');
 }
